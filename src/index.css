@@ -7,3 +7,16 @@
 body{
     font-family: sans-serif;
 }
+
+a{
+  text-decoration: none;
+}
+
+ul,ol{
+  list-style-type: none;
+}
+
+.active{
+  color: #61dafb;
+  border-bottom: 2px solid #61dafb;
+}
