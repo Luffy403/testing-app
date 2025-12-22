@@ -4,6 +4,9 @@ import { LoginPage } from "../pages/login/LoginPage";
 import { StudentLayout } from "../layouts/StudentLayout";
 import { AdminLayout } from "../layouts/AdminLayout";
 import { NotFoundPage } from "../pages/errors/NotFoundPage";
+import { StudentTestPage } from "../pages/student/StudentTestPage";
+import { StudentPage } from "../pages/student/StudentPage";
+import { StudentTests } from "../pages/student/StudentTests";
 
 export const router = createBrowserRouter([
     {
@@ -11,19 +14,23 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         errorElement: <NotFoundPage />,
         children: [
-            { path: "Login", element: <LoginPage /> },
-            { path: "Student", element: <StudentLayout /> , 
+            { path: "login", element: <LoginPage /> },
+            { path: "student", element: <StudentLayout /> , 
                 children: [
                 {
                     index: true, 
-                    element: <h2> Student dashboard</h2> 
+                    element: <StudentPage /> 
                 },
                 {
-                    path: "test", 
-                    element: <h2> Student TESTS</h2> 
+                    path: "tests", 
+                    element: <StudentTests /> 
+                },
+                {
+                    path: "test/:id", 
+                    element: <StudentTestPage />
                 }
             ]},
-            { path: "Admin", element: <AdminLayout /> ,
+            { path: "admin", element: <AdminLayout /> ,
                 children: [
                 {
                     index: true, 
@@ -34,7 +41,8 @@ export const router = createBrowserRouter([
                     element: <h2> Admin SETTINGS</h2> 
                 }
                 ]
-             },
+            },
+            { path:'*' , element: <NotFoundPage />}
         ],
     },
 ]);
