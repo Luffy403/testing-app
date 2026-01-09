@@ -5,5 +5,5 @@ const repoName = 'testing-app';
 
 export default defineConfig({
   plugins: [react()],
-  base: `/${repoName}/`,
+  // base: `/${repoName}/`,
 })
