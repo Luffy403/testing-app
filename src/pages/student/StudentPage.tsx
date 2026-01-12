@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export function StudentPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   function handleOpenTest(){
     navigate('/student/tests')
