@@ -17,6 +17,14 @@ ol {
   list-style-type: none;
 }
 
+input{
+  outline: none;
+}
+
+button{
+  border: none;
+}
+
 .active {
   color: #61dafb;
   border-bottom: 2px solid #61dafb;
