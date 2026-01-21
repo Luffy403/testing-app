@@ -1,22 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { ProfileLinkIcon } from "../../icons/icons";
-
-// типы с вложенностями
-type Groups = { code: string; course: string; track: string };
-type Socials = { link: string; label: string };
-// тип для профиля
-type ProfileDataProps = {
-  fullName: string;
-  work: string;
-  avatarUrl?: string;
-  social?: Socials;
-  group: Groups[];
-};
-// тип для заголовка страницы профиля
-type ProfileTitleProps = {
-  title: string;
-};
+import { ChangeModalPassword } from "../../components/ChangeModalPassword";
 
 const Title = styled.h3`
   color: #0e73f6;
@@ -79,11 +64,15 @@ const Link = styled.a`
 const GroupList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 50px;
 `;
 
-const GroupItem = styled.span`
+const GroupLine = styled.li`
+  display: flex;
+`;
+
+const GroupItem = styled.p`
   margin-right: 5px;
   background-color: #f5f5f5;
   border-radius: 14px;
@@ -98,7 +87,7 @@ const ButtonLine = styled.div`
 `;
 
 const ProfileButton = styled.button`
-  border: 1px solid #DDE2E4;
+  border: 1px solid #dde2e4;
   font-size: 14px;
   padding: 10px 30px;
   font-weight: 600;
@@ -106,11 +95,28 @@ const ProfileButton = styled.button`
   background-color: #fff;
 `;
 
+// типы с вложенностями
+type Groups = { code: string; course: string; track: string };
+type Socials = { link: string; label: string };
+// тип для профиля
+type ProfileDataProps = {
+  fullName: string;
+  work: string;
+  avatarUrl?: string;
+  social?: Socials;
+  group: Groups[];
+};
+// тип для заголовка страницы профиля
+type ProfileTitleProps = {
+  title: string;
+};
+
 export function ProfileTitle(p: ProfileTitleProps) {
   return <Title>{p.title}</Title>;
 }
 
 export function StudentProfilePage() {
+  const [openModal, setOpenModal] = useState(false);
   const ProfileData: ProfileDataProps = {
     fullName: "Никитос 403",
     work: "КОД",
@@ -127,6 +133,10 @@ export function StudentProfilePage() {
   };
 
   const [profile] = useState<ProfileDataProps>(ProfileData);
+
+  function onChangePassword() {
+    setOpenModal(true);
+  }
 
   return (
     <section>
@@ -145,19 +155,25 @@ export function StudentProfilePage() {
           </Link>
           <GroupList>
             {profile.group.map((g, index) => (
-              <li key={index}>
+              <GroupLine key={index}>
                 <GroupItem>{g.code}</GroupItem>
                 <GroupItem>{g.course}</GroupItem>
                 <GroupItem>{g.track}</GroupItem>
-              </li>
+              </GroupLine>
             ))}
           </GroupList>
           <ButtonLine>
             <ProfileButton>Поменять фото</ProfileButton>
-            <ProfileButton>Изменить пароль</ProfileButton>
+            <ProfileButton onClick={() => onChangePassword()}>
+              Изменить пароль
+            </ProfileButton>
           </ButtonLine>
         </ProfileInfo>
       </WrapperLine>
+      <ChangeModalPassword
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </section>
   );
 }
