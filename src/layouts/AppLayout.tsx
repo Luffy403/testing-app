@@ -37,7 +37,7 @@ export function AppLayout() {
               Admin
             </NavLink>
           </nav>
-          {!profilePage && <StudentHeader title="Никитос 403" />}
+          {!profilePage && <StudentHeader />}
         </Header>
       )}
       <main>
