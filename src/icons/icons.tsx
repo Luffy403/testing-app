@@ -76,9 +76,10 @@ export function ProfileLinkIcon() {
   );
 }
 
-export function ShowPassrord() {
+export function ShowPassword({ className }: { className?: string }) {
   return (
     <svg
+      className={className}
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -131,6 +132,42 @@ export function Loop() {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function DoneIcon() {
+  return (
+    <svg
+      width="15"
+      height="10"
+      viewBox="0 0 15 10"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.75 4.99268L4.99264 9.23532L13.477 0.75"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ArrowLeft() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.87 9.814L15.685 16l6.187 6.188l-3.535 3.537L8.612 16l9.723-9.724z"
       />
     </svg>
   );

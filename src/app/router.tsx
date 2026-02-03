@@ -6,7 +6,7 @@ import { AdminLayout } from "../layouts/AdminLayout";
 import { NotFoundPage } from "../pages/errors/NotFoundPage";
 import { StudentTestPage } from "../pages/student/StudentTestPage";
 import { StudentPage } from "../pages/student/StudentPage";
-import { StudentTests } from "../pages/student/StudentTests";
+// import { StudentTests } from "../pages/student/StudentTests";
 import { StudentProfilePage } from "../pages/student/StudentProfilePage";
 import { StudentStatistics } from "../pages/student/StudentStatistics";
 
@@ -25,12 +25,12 @@ export const router = createBrowserRouter([
                 },
                 {
                     path: "tests", 
-                    element: <StudentTests /> 
+                    element: <StudentTestPage /> 
                 },
-                {
-                    path: "test/:id", 
-                    element: <StudentTestPage />
-                },
+                // {
+                //     path: "test/:id", 
+                //     element: <StudentTestPage />
+                // },
                 {
                     path: "profile",
                     element: <StudentProfilePage />

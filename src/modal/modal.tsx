@@ -57,25 +57,18 @@ const ButtonLine = styled.div`
   display: flex;
   gap: 10px;
 `;
-const Button = styled.button`
-  display: flex;
-  padding: 10px 20px;
-  flex: 1 1 calc(50% - 10px);
-  text-align: center;
-  background-color: #dedede;
-  justify-content: center;
-  cursor: pointer;
-`;
+
 
 type ModalProps = {
   open: boolean;
   title: string;
   children: React.ReactNode;
+  footer: React.ReactNode;
   onClose: () => void;
 };
 
 export function Modal(props: ModalProps) {
-  const { open, title, children, onClose } = props;
+  const { open, title, children, onClose, footer } = props;
 
   if (!open) return null;
 
@@ -94,10 +87,7 @@ export function Modal(props: ModalProps) {
           </ModalButtonClose>
         </Head>
         <Main>{children}</Main>
-        <ButtonLine>
-          <Button onClick={() => onClose()}>Закрыть</Button>
-          <Button>Подтвердить</Button>
-        </ButtonLine>
+        {footer && <ButtonLine>{footer}</ButtonLine>}
       </Dialog>
     </BGModal>
   );
