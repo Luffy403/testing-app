@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { ProfileLinkIcon } from "../../icons/icons";
 import { ChangeModalPassword } from "../../components/ChangeModalPassword";
+import { Toast } from "../../components/ui/Toast";
 
 const Title = styled.h3`
   color: #0e73f6;
@@ -117,6 +118,7 @@ export function ProfileTitle(p: ProfileTitleProps) {
 
 export function StudentProfilePage() {
   const [openModal, setOpenModal] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
   const ProfileData: ProfileDataProps = {
     fullName: "Никитос 403",
     work: "КОД",
@@ -133,10 +135,6 @@ export function StudentProfilePage() {
   };
 
   const [profile] = useState<ProfileDataProps>(ProfileData);
-
-  function onChangePassword() {
-    setOpenModal(true);
-  }
 
   return (
     <section>
@@ -164,7 +162,7 @@ export function StudentProfilePage() {
           </GroupList>
           <ButtonLine>
             <ProfileButton>Поменять фото</ProfileButton>
-            <ProfileButton onClick={() => onChangePassword()}>
+            <ProfileButton onClick={() => setOpenModal(true)}>
               Изменить пароль
             </ProfileButton>
           </ButtonLine>
@@ -173,6 +171,12 @@ export function StudentProfilePage() {
       <ChangeModalPassword
         open={openModal}
         onClose={() => setOpenModal(false)}
+        onSuccess={() => setOpenToast(true)}
+      />
+      <Toast
+        message="Сохранения изменены"
+        open={openToast}
+        onClose={() => setOpenToast(false)}
       />
     </section>
   );
