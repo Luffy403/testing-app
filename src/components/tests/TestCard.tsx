@@ -6,5 +6,5 @@ type TestCardProp = {
 
 export function TestCard(props : TestCardProp){
     const { test } = props;
-    return <div>TestCard</div>
+    return <h3>{test.title}</h3>
 }

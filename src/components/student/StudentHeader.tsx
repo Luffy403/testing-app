@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import { ArrowLeft } from "../../icons/icons";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import { SearchLine } from "./SearchLine";
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 30px;
 `;
 
 const LeftBlock = styled.div`
@@ -25,7 +25,7 @@ const BackLink = styled(RouterLink)`
   background-color: #f4f9ff;
   color: #0e73f6;
   text-decoration: none;
-  
+
   &:hover {
     background-color: #e6f0ff;
   }
@@ -40,7 +40,13 @@ const HeaderTitle = styled.h1`
 const HeaderRight = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
+`;
+
+const HeaderProfile = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 18px;
 `;
 
 const HeaderAva = styled.img`
@@ -68,53 +74,55 @@ const LinkText = styled.span`
   line-height: 1.2;
 `;
 
-type Socials = { 
-  link: string; 
-  label: string; 
+type Socials = {
+  link: string;
+  label: string;
 };
 
 type StudentHeaderProps = {
   fullName: string;
-  title: string; // Обязательная строка по заданию
-  backTo?: string; // Опциональная строка по заданию
+  title: string;
+  backTo?: string;
   avatarUrl?: string;
   social?: Socials;
 };
 
-export function StudentHeader({ 
-  fullName, 
-  title, 
-  backTo, 
-  avatarUrl, 
-  social 
-}: StudentHeaderProps) {
+export function StudentHeader(props: StudentHeaderProps) {
+  const location = useLocation();
+  const { fullName, title, backTo, avatarUrl, social } = props;
+  const searchLocation = location.pathname === "/student/tests";
+
   return (
     <HeaderContainer>
       <LeftBlock>
         {backTo && (
-          <BackLink 
-            to={backTo} 
-            aria-label="Назад"
-          >
+          <BackLink to={backTo} aria-label="Назад">
             <ArrowLeft />
           </BackLink>
         )}
         <HeaderTitle>{title}</HeaderTitle>
       </LeftBlock>
-      
+
       <HeaderRight>
-        <HeaderAva 
-          src={avatarUrl || "https://via.placeholder.com/60"} 
-          alt={`Аватар ${fullName}`} 
-        />
-        <HeaderText>
-          <HeaderTitle>{fullName}</HeaderTitle>
-          {social && (
-            <SocialLink href={social.link} target="_blank" rel="noopener noreferrer">
-              <LinkText>{social.label}</LinkText>
-            </SocialLink>
-          )}
-        </HeaderText>
+        {searchLocation && <SearchLine/>}
+        <HeaderProfile>
+          <HeaderAva
+            src={avatarUrl || "https://via.placeholder.com/60"}
+            alt={`Аватар ${fullName}`}
+          />
+          <HeaderText>
+            <HeaderTitle>{fullName}</HeaderTitle>
+            {social && (
+              <SocialLink
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkText>{social.label}</LinkText>
+              </SocialLink>
+            )}
+          </HeaderText>
+        </HeaderProfile>
       </HeaderRight>
     </HeaderContainer>
   );

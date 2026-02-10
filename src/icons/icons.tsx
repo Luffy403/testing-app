@@ -117,7 +117,7 @@ export function CloseModal() {
   );
 }
 
-export function Loop() {
+export function SearchIcon() {
   return (
     <svg
       width="24"

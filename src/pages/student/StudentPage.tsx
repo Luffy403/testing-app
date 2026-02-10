@@ -7,9 +7,7 @@ export function StudentPage() {
     navigate('/student/tests')
   }
   return (
-    <div>
-      <button onClick={ () => handleOpenTest()}> go test</button>
-      <button onClick={ () => navigate(-1)}> go back</button>
-    </div>
+    // <
+    <div>здесь ничё нет пока что</div>
   );
 }
