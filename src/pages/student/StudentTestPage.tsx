@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { TestCard } from "../../components/tests/TestCard";
 import { useEffect, useState } from "react";
 import { Loader } from "../../components/ui/Loader";
-// import { TestItem, type Attemp } from "../../types/testing";
+import { type TestItem, type Attemp } from "../../types/testing";
 
 const Cards = styled.div`
   display: grid;
@@ -40,7 +40,7 @@ export function StudentTestPage() {
   return (
     <Cards>
       {tests.map((t, i) =>(
-        <TestCard test={t} key={i} />
+        <TestCard test={t} key={i} lastAttemps = {attemps[0]}/>
       ))}
     </Cards>
   );

@@ -34,7 +34,6 @@ export const SearchInput = styled.input`
 
 export function SearchLine() {
   const [searchOpen, setSearchOpen] = useState(false);
-  
   return (
     <>
       {!searchOpen ? (
@@ -48,6 +47,7 @@ export function SearchLine() {
           placeholder="Поиск..."
         />
       )}
+      
     </>
   );
 }
