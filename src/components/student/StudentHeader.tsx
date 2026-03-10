@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ArrowLeft } from "../../icons/icons";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { SearchLine } from "./SearchLine";
 
 const HeaderContainer = styled.div`
@@ -8,6 +8,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 30px;
 `;
 
 const LeftBlock = styled.div`
@@ -16,7 +17,7 @@ const LeftBlock = styled.div`
   gap: 10px;
 `;
 
-const BackLink = styled(RouterLink)`
+const BackLink = styled.button`
   display: grid;
   place-items: center;
   width: 36px;
@@ -37,6 +38,11 @@ const HeaderTitle = styled.h1`
   margin: 0;
 `;
 
+const UserTitle = styled.h2`
+  font-size: 17px;
+  line-height: 1.21;
+  margin: 0;
+`;
 const HeaderRight = styled.div`
   display: flex;
   align-items: center;
@@ -80,7 +86,7 @@ type Socials = {
 };
 
 type StudentHeaderProps = {
-  fullName: string;
+  fullName?: string;
   title: string;
   backTo?: string;
   avatarUrl?: string;
@@ -89,36 +95,44 @@ type StudentHeaderProps = {
 
 export function StudentHeader(props: StudentHeaderProps) {
   const location = useLocation();
-  const { fullName, title, backTo, avatarUrl, social } = props;
+  const navigate = useNavigate();
+  const { title } = props;
+  const user = {
+    fullName: "Никитос 403",
+    avatarUrl:
+      "https://i.pinimg.com/736x/97/02/44/9702441e8905ee2dcd6484b1fd3f004f.jpg",
+    social: { link: "https://t.me/Luffy403", label: "Joker_403" },
+  };
   const searchLocation = location.pathname === "/student/tests";
 
+  function BackTo(){
+    navigate(-1)
+  }
   return (
     <HeaderContainer>
       <LeftBlock>
-        {backTo && (
-          <BackLink to={backTo} aria-label="Назад">
+          <BackLink onClick={BackTo} aria-label="Назад">
             <ArrowLeft />
           </BackLink>
-        )}
         <HeaderTitle>{title}</HeaderTitle>
       </LeftBlock>
 
       <HeaderRight>
-        {searchLocation && <SearchLine/>}
+        {searchLocation && <SearchLine />}
         <HeaderProfile>
           <HeaderAva
-            src={avatarUrl || "https://via.placeholder.com/60"}
-            alt={`Аватар ${fullName}`}
+            src={user.avatarUrl || "https://via.placeholder.com/60"}
+            alt={`Аватар ${user.fullName}`}
           />
           <HeaderText>
-            <HeaderTitle>{fullName}</HeaderTitle>
-            {social && (
+            <UserTitle>{user.fullName}</UserTitle>
+            {user.social && (
               <SocialLink
-                href={social.link}
+                href={user.social.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <LinkText>{social.label}</LinkText>
+                <LinkText>{user.social.label}</LinkText>
               </SocialLink>
             )}
           </HeaderText>

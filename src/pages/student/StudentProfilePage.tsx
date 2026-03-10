@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { ProfileLinkIcon } from "../../icons/icons";
-import { ChangeModalPassword } from "../../components/ChangeModalPassword";
+import { ChangeModalPassword } from "../../components/student/ChangeModalPassword";
 import { Toast } from "../../components/ui/Toast";
 
 const Title = styled.h3`
@@ -123,7 +123,7 @@ export function StudentProfilePage() {
     fullName: "Никитос 403",
     work: "КОД",
     avatarUrl:
-      "https://sun9-81.userapi.com/s/v1/ig2/uhLasTmtHwB37VIeRnwCnMnU_IN6aVGmo6J5xnuO1nk1_D1KywuZ60xfltF89-S4lcA6iKM1SgB9xWEcecSaDdkM.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960&from=bu&cs=1280x0",
+     "https://i.pinimg.com/736x/97/02/44/9702441e8905ee2dcd6484b1fd3f004f.jpg",
     social: {
       link: "https://t.me/Luffy403",
       label: "Joker_403",

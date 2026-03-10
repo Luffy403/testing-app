@@ -9,6 +9,7 @@ import { StudentPage } from "../pages/student/StudentPage";
 // import { StudentTests } from "../pages/student/StudentTests";
 import { StudentProfilePage } from "../pages/student/StudentProfilePage";
 import { StudentStatistics } from "../pages/student/StudentStatistics";
+import { StudentRunTests } from "../pages/student/StudentRunTests";
 
 export const router = createBrowserRouter([
     {
@@ -27,10 +28,10 @@ export const router = createBrowserRouter([
                     path: "tests", 
                     element: <StudentTestPage /> 
                 },
-                // {
-                //     path: "test/:id", 
-                //     element: <StudentTestPage />
-                // },
+                {
+                    path: "test/:id", 
+                    element: <StudentRunTests />
+                },
                 {
                     path: "profile",
                     element: <StudentProfilePage />

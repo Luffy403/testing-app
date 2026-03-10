@@ -62,8 +62,8 @@ const ButtonLine = styled.div`
 type ModalProps = {
   open: boolean;
   title: string;
-  children: React.ReactNode;
-  footer: React.ReactNode;
+  children?: React.ReactNode;
+  footer?: React.ReactNode;
   onClose: () => void;
 };
 
@@ -86,7 +86,7 @@ export function Modal(props: ModalProps) {
             <ModalCloseIcon />
           </ModalButtonClose>
         </Head>
-        <Main>{children}</Main>
+        {children &&<Main>{children}</Main>}
         {footer && <ButtonLine>{footer}</ButtonLine>}
       </Dialog>
     </BGModal>

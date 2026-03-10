@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { Modal } from "../modal/modal";
-import { ShowPassword } from "../icons/icons";
+import { Modal } from '../../modal/modal';
+import { ShowPassword } from "../../icons/icons";
 import { useState } from "react";
 
 const InputContainer = styled.div`

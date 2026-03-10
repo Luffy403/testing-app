@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import type { TestItem, Attemp } from "../../types/testing";
-import { DateIcon, TimeIcon } from "../../icons/icons";
+import { DateIcon, DoneIcon, TimeIcon } from "../../icons/icons";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ConfirmModal } from "./ConfirmModal";
 
 const Card = styled.article`
   border: 1px solid #dde2e4;
@@ -83,6 +86,45 @@ const MaxScore = styled.span`
   font-size: 26.4px;
 `;
 
+const BtnLine = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+const BaseButton = styled.button`
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.71;
+  border-radius: 10px;
+  padding: 7px 22px;
+  min-width: 122px;
+  cursor: pointer;
+`;
+
+const StartBtn = styled(BaseButton)`
+  color: #ffffff;
+  border: 1px solid #0e73f6;
+  background-color: #0e73f6;
+`;
+
+const RetryBtn = styled(BaseButton)`
+  border: 1px solid #dde2e4;
+  background-color: transparent;
+  color: #09090b;
+`;
+
+const SuccessBtn = styled(BaseButton)`
+  color: #ffffff;
+  border: 1px solid #00c63f;
+  background-color: #00c63f;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  &:disabled {
+    opacity: 0.6;
+  }
+`;
+
 type TestCardProp = {
   test: TestItem;
   lastAttemps: Attemp;
@@ -90,7 +132,8 @@ type TestCardProp = {
 
 export function TestCard(props: TestCardProp) {
   const { test, lastAttemps } = props;
-
+  const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
   function formatSecFromMin(seconds: number | null): string | null {
     if (!seconds) return null;
 
@@ -119,10 +162,29 @@ export function TestCard(props: TestCardProp) {
     return d.toLocaleDateString("ru-RU");
   }
 
-  const isGreaded = lastAttemps.status === "graded";
+  const isGreaded = lastAttemps?.status === "graded";
   const scoreText = isGreaded ? lastAttemps.score / 10 : null;
   const deadline = formatDateISO(test.deadlineISO);
   const duration = formatSecFromMin(test.durationSec);
+
+  const textBtn = useMemo(() => {
+    if (isGreaded && test.allowRetry)
+      return { status: "retry", label: "Пройти заново" };
+    if (isGreaded && !test.allowRetry)
+      return { status: "done", label: "Пройдено" };
+    return { status: "start", label: "Пройти" };
+  }, [isGreaded, test.allowRetry]);
+
+  function handleClick() {
+    if (textBtn.status === "done") return;
+    navigate(`/student/test/${test.id}`, {
+      state: { durationSec: test.durationSec },
+    });
+  }
+  function onChange() {
+    setOpenModal((o) => !o);
+  }
+
   return (
     <Card>
       <TestContent>
@@ -147,11 +209,19 @@ export function TestCard(props: TestCardProp) {
             </TestListTime>
           )}
         </TestList>
-        <div>
-          <button>Пройти</button>
-          <button>Пройти заново</button>
-          <button>Выполнено</button>
-        </div>
+        <BtnLine>
+          {textBtn.status === "start" && (
+            <StartBtn onClick={() => onChange()}>{textBtn.label}</StartBtn>
+          )}
+          {textBtn.status === "retry" && (
+            <RetryBtn onClick={() => onChange()}>{textBtn.label}</RetryBtn>
+          )}
+          {textBtn.status === "done" && (
+            <SuccessBtn disabled>
+              {textBtn.label} <DoneIcon />
+            </SuccessBtn>
+          )}
+        </BtnLine>
         {isGreaded && (
           <ContentScore>
             <Score>{scoreText}</Score>
@@ -159,6 +229,14 @@ export function TestCard(props: TestCardProp) {
           </ContentScore>
         )}
       </TestContent>
+      <ConfirmModal
+        title="Вы готовы начать тест?"
+        open={openModal}
+        onClose={() => onChange()}
+        labelClose="Нет"
+        labelDone="Да!"
+        onConfirm={handleClick}
+      />
     </Card>
   );
 }

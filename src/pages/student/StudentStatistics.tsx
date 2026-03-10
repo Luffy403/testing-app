@@ -1,3 +1,5 @@
+import { StudentHeader } from "../../components/student/StudentHeader";
+
 export function StudentStatistics(){
-    return <h2>Статистика</h2>
+    return <StudentHeader title="Статистика"/>
 }

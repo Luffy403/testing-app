@@ -32,3 +32,15 @@ export type TestItem = {
     attempAllow: number;
     deadlineISO?: string;
 }
+
+export type QuestionType = 'multiple' | 'single' | 'text';
+
+export type Questions = {
+    id: number;
+    testId: number;
+    type: QuestionType;
+    text: string
+    options: string[];
+    score: number;
+    shuffle?: boolean;
+}
